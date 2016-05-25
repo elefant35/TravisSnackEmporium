@@ -1,7 +1,7 @@
 <?php
 //globals------------------------------------------------------------------------------
 $Wurl= "https://hooks.slack.com/services/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";
-$Filename = "file.csv";
+$Filename = "records.csv";
 //functions----------------------------------------------------------------------------
 
 //sends an array to slack to be displayed
