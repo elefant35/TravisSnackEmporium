@@ -28,16 +28,25 @@ function getFunds($name, $csv)
 		if($acsv['name'] == $name){
 			$fund = $acsv['funds'];	
 		}
-	}		
+	}
 	return $fund;
 }
-function subtractFunds($csv, $Filename)
+function subtractFunds(&$csv, $Filename, $amount, $name)
 {
+	echo("wtf");
+	foreach($csv as &$acsv){
+		if( $acsv['name'] == $name){
+			$acsv['funds'] = $acsv['funds'] - $amount; 
+		}
+	}
 	$fp = fopen($Filename, 'w');
-	fputs("name,funds poptarts\n");
+	fputs($fp,"name,funds\n");
 	foreach($csv as $row){
 		fputcsv($fp, $row);
 	}
+	echo("funds are");
+	echo($csv[0]['funds']);		
+
 	echo(" ran");
 	fclose($fp);
 
@@ -81,7 +90,7 @@ if( $_POST['channel_name'] == "bot-testing"){
 	//SUBTRACT FUNDS
 	if($text[0] == "subtract"){
 		echo("subtract");
-		subtractFunds($csv, $Filename);
+		subtractFunds($csv, $Filename,$text[1],$_POST['user_name']);
 		echo("2");
 	}
 	//get Funds
