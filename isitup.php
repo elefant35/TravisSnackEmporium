@@ -59,6 +59,23 @@ function addFunds(&$csv, $Filename, $amount, $name)
 	}
 	fclose($fp);
 }
+function addMe(&$csv, $Filename, $name)
+{
+	foreach($csv as &$acsv){
+		if( $acsv['name'] == $name){
+			echo("You have already been added");
+			return 0;
+		}
+		}
+		array_push($csv, array( "name" => $name, "funds" => 0)); 
+		$fp = fopen($Filename, 'w');
+		fputs($fp,"name,funds\n");
+		foreach($csv as $row){
+			fputcsv($fp, $row);
+		}
+		fclose($fp);		
+}
+
 
 //check token------------------------------------------------------
 
@@ -111,6 +128,12 @@ if( $_POST['channel_name'] == "bot-testing"){
 		echo("funds");
 		$fund = getFunds($_POST['user_name'], $csv);
 		echo($fund);
+	}
+	
+	//setup
+	if($text[0] == "setup"){
+		echo("add me");
+		addMe($csv, $Filename, $_POST['user_name']);
 	}
 //	echo($_POST['channel_name']);
 
