@@ -106,7 +106,8 @@ if( $_POST['channel_name'] == "bot-testing"){
 		echo("add");
 		addFunds($csv, $Filename,$text[1],$_POST['user_name']);
 		$fund = getFunds($_POST['user_name'], $csv);
-		echo("You have $fund left in your account\n");
+		echo('You have $'."$fund left in your account \n");
+		
 
 	}
 
@@ -120,14 +121,15 @@ if( $_POST['channel_name'] == "bot-testing"){
 		echo("subtract\n");
 		subtractFunds($csv, $Filename,$text[1],$_POST['user_name']);
 		$fund = getFunds($_POST['user_name'], $csv);
-		echo("You have $fund left in your account\n");
+		echo('You have $'."$fund left in your account \n");
+		
 
 	}
 	//get Funds
 	if($text[0] == "funds"){
 		echo("funds");
 		$fund = getFunds($_POST['user_name'], $csv);
-		echo($fund);
+		echo('You have $'."$fund left in your account \n");
 	}
 	
 	//setup
