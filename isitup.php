@@ -45,7 +45,20 @@ function subtractFunds(&$csv, $Filename, $amount, $name)
 	}
 	fclose($fp);
 }
-
+function addFunds(&$csv, $Filename, $amount, $name)
+{
+	foreach($csv as &$acsv){
+		if( $acsv['name'] == $name){
+			$acsv['funds'] = $acsv['funds'] + $amount; 
+		}
+	}
+	$fp = fopen($Filename, 'w');
+	fputs($fp,"name,funds\n");
+	foreach($csv as $row){
+		fputcsv($fp, $row);
+	}
+	fclose($fp);
+}
 
 //check token------------------------------------------------------
 
@@ -74,6 +87,10 @@ if( $_POST['channel_name'] == "bot-testing"){
 	//ADD FUNDS
 	if($text[0] == "add"){
 		echo("add");
+		addFunds($csv, $Filename,$text[1],$_POST['user_name']);
+		$fund = getFunds($_POST['user_name'], $csv);
+		echo("You have $fund left in your account\n");
+
 	}
 
 
