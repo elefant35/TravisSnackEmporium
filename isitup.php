@@ -63,7 +63,7 @@ function addMe(&$csv, $Filename, $name)
 {
 	foreach($csv as &$acsv){
 		if( $acsv['name'] == $name){
-			echo("You have already been added");
+			echo("You have already been addedi\n");
 			return 0;
 		}
 		}
@@ -73,6 +73,7 @@ function addMe(&$csv, $Filename, $name)
 		foreach($csv as $row){
 			fputcsv($fp, $row);
 		}
+		echo("Your account has been successfully created\n");
 		fclose($fp);		
 }
 
@@ -96,14 +97,14 @@ array_shift($csv);
 
 //MAIN-------------------------------------------------------------
 
-if( $_POST['channel_name'] == "bot-testing"){
+//if( $_POST['channel_name'] == "bot-testing"){
 	//seperate words
 	$text = explode(' ',$_POST['text']);
 	//echo("$text[0]");
 	
 	//ADD FUNDS
 	if($text[0] == "add"){
-		echo("add");
+	//	echo("add");
 		addFunds($csv, $Filename,$text[1],$_POST['user_name']);
 		$fund = getFunds($_POST['user_name'], $csv);
 		echo('You have $'."$fund left in your account \n");
@@ -114,11 +115,11 @@ if( $_POST['channel_name'] == "bot-testing"){
 
 	//BUY ITEM
 	if($text[0] == "buy"){
-		echo("buy");
+	//	echo("buy");
 	}
 	//SUBTRACT FUNDS
 	if($text[0] == "subtract"){
-		echo("subtract\n");
+	//	echo("subtract\n");
 		subtractFunds($csv, $Filename,$text[1],$_POST['user_name']);
 		$fund = getFunds($_POST['user_name'], $csv);
 		echo('You have $'."$fund left in your account \n");
@@ -127,29 +128,31 @@ if( $_POST['channel_name'] == "bot-testing"){
 	}
 	//get Funds
 	if($text[0] == "funds"){
-		echo("funds");
+	//	echo("funds");
 		$fund = getFunds($_POST['user_name'], $csv);
 		echo('You have $'."$fund left in your account \n");
 	}
 	
 	//setup
 	if($text[0] == "setup"){
-		echo("add me");
 		addMe($csv, $Filename, $_POST['user_name']);
+	}
+	if($text[0] =="help"){
+		echo("To set up your Travis account first use".'"/travis setup"'." (this adds your name to the tracking sheet) \n". '"/travis add [amount]"'. " will add the specified amount to your account \n". '"/travis subtract [amount]"'." will remove the specified amount from your account \n".'"/travis funds"'. " will tell you the amount left in your account \n");  
 	}
 //	echo($_POST['channel_name']);
 
 	//$data = makePackage("meh");
 
 	//sendPackage($data, $Wurl);
-}
-else{
+//}
+//else{
 	//echo($_POST['channel_name']);
-	die("command not allowed in this channel");
-}
+//	die("command not allowed in this channel");
+//}
 
 //closing------------------------------------
-echo(" Now get out of my shop!");
+echo("Have a purrrfect day!");
 
 
 ?>
