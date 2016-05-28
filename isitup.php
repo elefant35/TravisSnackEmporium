@@ -1,7 +1,8 @@
 <?php
 //globals------------------------------------------------------------------------------
 $Wurl= "https://hooks.slack.com/services/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";
-$Filename = "records.csv";
+$Filename = "records2.csv";
+$Filename2 = "snacks.csv";
 //functions----------------------------------------------------------------------------
 
 //sends an array to slack to be displayed
@@ -76,7 +77,13 @@ function addMe(&$csv, $Filename, $name)
 		echo("Your account has been successfully created\n");
 		fclose($fp);		
 }
+function menu($csv)
+{
+	foreach($csv as $acsv){
+		echo($acsv['name'].': $'.$acsv['price']."\n");
+	}
 
+}
 
 //check token------------------------------------------------------
 
@@ -87,12 +94,20 @@ if($token !='U6dJ9dqCQwpEAaZLmTOvk9xh'){
 	die("Go Away");
 }
 
-//get file ready--------------------------------------------------
+//get presonel csv file ready--------------------------------------------------
 $csv = array_map('str_getcsv', file($Filename));
 array_walk($csv, function(&$a) use ($csv){
 	$a = array_combine($csv[0],$a);
 });
 array_shift($csv);
+
+//get snack csv file ready
+$snackcsv = array_map('str_getcsv', file($Filename2));
+array_walk($snackcsv, function(&$b) use ($snackcsv){
+	$b = array_combine($snackcsv[0],$b);
+});
+array_shift($snackcsv);
+
 //echo($csv[1]['funds']);
 
 //MAIN-------------------------------------------------------------
@@ -136,6 +151,9 @@ array_shift($csv);
 	//setup
 	if($text[0] == "setup"){
 		addMe($csv, $Filename, $_POST['user_name']);
+	}
+	if($text[0] =="menu"){
+		menu($snackcsv);
 	}
 	if($text[0] =="help"){
 		echo("To set up your Travis account first use".'"/travis setup"'." (this adds your name to the tracking sheet) \n". '"/travis add [amount]"'. " will add the specified amount to your account \n". '"/travis subtract [amount]"'." will remove the specified amount from your account \n".'"/travis funds"'. " will tell you the amount left in your account \n");  
