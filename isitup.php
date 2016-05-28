@@ -84,6 +84,25 @@ function menu($csv)
 	}
 
 }
+function buy(&$csv, $snackcsv, $Filename, $name, $snack)
+{
+	foreach($snackcsv as $acsv){
+		if($acsv['name'] == $snack)
+		{
+			$price = $acsv['price'];
+		}
+	}
+	if( $price == NULL)
+	{
+		echo("Snack not found");
+	}
+	else{
+		echo("Snack purchased for ".'$'. "$price \n");
+		subtractFunds($csv, $Filename, $price, $name);
+	}
+
+
+}
 
 //check token------------------------------------------------------
 
@@ -130,7 +149,11 @@ array_shift($snackcsv);
 
 	//BUY ITEM
 	if($text[0] == "buy"){
-	//	echo("buy");
+		echo("buy");
+		buy($csv, $snackcsv,$Filename, $_POST['user_name'], $text[1]);
+		$fund = getFunds($_POST['user_name'], $csv);
+		echo('You have $'."$fund left in your account \n");
+
 	}
 	//SUBTRACT FUNDS
 	if($text[0] == "subtract"){
