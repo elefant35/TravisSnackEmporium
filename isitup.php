@@ -149,7 +149,6 @@ array_shift($snackcsv);
 
 	//BUY ITEM
 	if($text[0] == "buy"){
-		echo("buy");
 		buy($csv, $snackcsv,$Filename, $_POST['user_name'], $text[1]);
 		$fund = getFunds($_POST['user_name'], $csv);
 		echo('You have $'."$fund left in your account \n");
@@ -179,7 +178,7 @@ array_shift($snackcsv);
 		menu($snackcsv);
 	}
 	if($text[0] =="help"){
-		echo("To set up your Travis account first use".'"/travis setup"'." (this adds your name to the tracking sheet) \n". '"/travis add [amount]"'. " will add the specified amount to your account \n". '"/travis subtract [amount]"'." will remove the specified amount from your account \n".'"/travis funds"'. " will tell you the amount left in your account \n");  
+		echo("To set up your Travis account first use".'"/travis setup"'." (this adds your name to the tracking sheet) \n". '"/travis add [amount]"'. " will add the specified amount to your account \n". '"/travis subtract [amount]"'." will remove the specified amount from your account \n".'"/travis funds"'. " will tell you the amount left in your account \n".'"/travis menu" '. "Will tell you the items available for purchase and their prices\n".'"/travis buy [item]"'." will buy the item specified, use menu for the names of items\n");  
 	}
 //	echo($_POST['channel_name']);
 
