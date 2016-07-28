@@ -1,6 +1,6 @@
 <?php
 //globals------------------------------------------------------------------------------
-$Wurl= "https://hooks.slack.com/services/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";
+$Wurl= "PUT URL HERE";
 $Filename = "records2.csv";
 $Filename2 = "snacks.csv";
 //functions----------------------------------------------------------------------------
